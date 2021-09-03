@@ -19,10 +19,14 @@
   },
   "homepage": "https://github.com/chais09/Hackathon_ASEAN_21#readme",
   "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3",
+    "express-validator": "^6.12.1",
     "mongoose": "^6.0.4",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7"
   }
 }

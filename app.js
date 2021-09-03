@@ -24,6 +24,9 @@ app.get("/", (req, res, next) => {
     res.render("home");
   });
 
+const userRouters = require("./routers/userRouters");
+app.use("/", userRouters);
+
 app.get("*", function (req, res, next) {
     res.locals.user = req.user || null;
     next();
