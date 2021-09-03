@@ -1,6 +1,23 @@
 require("dotenv").config();
 // MongoDB connection
 const mongoose = require("mongoose");
+
+mongoose
+  .connect("mongodb+srv://chais:pQJu06WJpu4N0zdE@cluster0.mrhom.mongodb.net/test?authSource=admin&replicaSet=atlas-mreudv-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true, // for uniqueness constraints on fields
+    useFindAndModify: false,
+    dbName: "Hackathon",
+  })
+  .then(() => console.log("MongoDB Connected..."))
+  .catch((err) => console.log(err));
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
+
+
 const express = require("express");
 const path = require("path");
 const app = express();
