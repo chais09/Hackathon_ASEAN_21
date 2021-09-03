@@ -1,0 +1,80 @@
+
+#loginform h1 {
+    position: absolute;
+    width: 365px;
+    height: 77px;
+    left: 605px;
+    top: 170px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 64px;
+    line-height: 75px;
+
+    color: #000000;
+
+}
+
+
+.loginform-login {
+    position: absolute;
+    width: 500px;
+    height: 370px;
+    left: 473px;
+    top: 299px;
+    
+    background: #DEF2F1;
+    border-radius: 5px;
+}
+
+#login_email{
+    position: absolute;
+    width: 60px;
+    height: 28px;
+    left: 562px;
+    top: 327px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+}
+
+#login_email_input{
+    position: absolute;
+    width: 322px;
+    height: 52px;
+    left: 562px;
+    top: 360px;
+
+    background: #F9FBFF;
+    border-radius: 5px;
+}
+
+#login_password_input{
+    position: absolute;
+    width: 322px;
+    height: 52px;
+    left: 562px;
+    top: 472px;
+
+    background: #F9FBFF;
+    border-radius: 5px;
+}
+
+#login_password{
+    position: absolute;
+    width: 107px;
+    height: 28px;
+    left: 562px;
+    top: 439px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+
+}

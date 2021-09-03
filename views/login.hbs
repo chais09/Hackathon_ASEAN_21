@@ -1,16 +1,16 @@
 <section id="loginform">
-  <h1>Login</h1>
+  <h1>Sign In</h1>
   <div class="loginform-login">
     <form class="form" method="post" action="/customer/login">
-      <label>
+      <label id = "login_email">
         Email
-        <input placeholder="email" name="username" />
+        <input id = "login_email_input" placeholder="email" name="username" />
       </label>
-      <label class="mt20">
+      <label id = "login_password" class="mt20">
         Password
-        <input placeholder="password" type="password" name="password" />
+        <input id = "login_password_input" placeholder="password" type="password" name="password" />
       </label>
-      <input class="darkButton" type="submit" value="submit">
+      <input class="btn btn-success active" type="submit" value="Sign In">
     </form>
   </div>
   {{#if error}}
