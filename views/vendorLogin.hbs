@@ -1,0 +1,23 @@
+<section id="loginform">
+  <h1>Login</h1>
+  <div class="loginform-login">
+    <form class="form" method="post" action="/vendors/login">
+      <label>
+        Van Name
+        <input placeholder="Van Name" name="username" />
+      </label>
+      <label class="mt20">
+        Password
+        <input placeholder="password" type="password" name="password" />
+      </label>
+      <input type="submit" value="submit">
+    </form>
+    <a> Join us today! Sign up <u><a id="vendor_signup" href="/vendors/signup">here</a></u>
+  </div>
+  {{#if error}}
+  <div class="login_fail">
+    <a style="color:red;"> Invalid username or password </a>
+  </div>
+  {{/if}}
+
+</section>

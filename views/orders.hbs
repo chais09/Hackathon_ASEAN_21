@@ -1,0 +1,240 @@
+<section id="orders" class="col">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>    
+    <script>
+        const getDate = (dateString) => {
+            let date = new Date(dateString);
+            date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+            return date.toString();
+        }
+        const getFullDate = (dateString) => {
+            return "Time of Order: " + dateString.slice(0,dateString.indexOf("GMT"));
+        }
+        let count = 0;
+        const getOrderNumber = (num) => {
+            count += 1;
+            if (num == 0) {
+                return "# " + count;
+            }
+            return "";
+        }
+        const getTimeDiff = (dateString) => {
+            let date = new Date(dateString);
+            let now = Date.now();
+            let diff = now - date;
+
+            let days = Math.floor(diff / 1000 / 60 / (60 * 24));
+            diff = new Date(diff);
+            let hours = diff.getHours() - 10;
+            let minutes = diff.getMinutes();
+            let seconds = diff.getSeconds();
+            let result = "";
+            days = days > 0 ? days + " Days, " : "";
+            hours = hours > 0 ? hours + " Hours, " : "";
+            minutes = minutes > 0 ? minutes + " Minutes, " : "";
+            return days + hours + minutes + seconds + " Seconds ago";
+        }
+        const showOrHideButtons = (dateString, id) => {
+            let date = new Date(dateString);
+            let now = Date.now();
+            let diff = now - date;
+
+            let days = Math.floor(diff / 1000 / 60 / (60 * 24));
+            diff = new Date(diff);
+            let hours = diff.getHours();
+            let minutes = diff.getMinutes();
+            let seconds = diff.getSeconds();
+            if (days > 0 || hours > 10 || minutes > 10) {
+                document.getElementById(`cancel-${id}`).style.display = "none";
+                document.getElementById(`change-${id}`).style.display = "none";
+            }
+        }
+    </script>
+    <div class="container ordersContainer">
+        <h1>Your Orders</h1>
+        {{!-- sort this eventually --}}
+        <div id="orderList" class="flex">
+            {{!-- put number in hbs template --}}
+            {{#customerOrderList orders}}{{/customerOrderList}}     
+        
+            {{#unless orders}}
+            {{#if customer_id}}
+            <div class="col">
+                <h2>You have no orders to show</h2>
+                <h2>Find a van near you to make an order</h2>
+                <button class="lightButton" onclick="location.href='/vendors'" type="button"
+                    style="margin: 0 auto;">Find a Van</button>
+            </div>
+            {{#else}}
+            <h2>You must login to see your orders</h2>
+            {{/else}}
+            {{/if}}
+            {{/unless}}
+        </div>
+        </div>
+    
+    
+    {{!rating popup}}
+        <div id="ratePopup" class="colMiddle" style="display: none;">
+        <div id="orderPopupModal">
+            <div class="flexBetween exitModal">
+                <i onclick="hideRatePopup()" class="fas fa-times"></i>
+            </div>
+            <div class="card-body text-center"> <img src=" https://i.imgur.com/d2dKtI7.png" height="100" width="100">
+                <div class="comment-box text-center">
+                    <h4>Rate Your Order</h4>
+                    <div class="rating">
+                        <input type="radio" name="rating" value="5" id="5" onclick="setRating(5)"><label for="5">☆</label> 
+                        <input type="radio" name="rating" value="4" id="4" onclick="setRating(4)"><label for="4">☆</label> 
+                        <input type="radio" name="rating" value="3" id="3" onclick="setRating(3)"><label for="3">☆</label> 
+                        <input type="radio" name="rating" value="2" id="2" onclick="setRating(2)"><label for="2">☆</label> 
+                        <input type="radio" name="rating" value="1" id="1" onclick="setRating(1)"><label for="1">☆</label> 
+                        <input type="button" onclick="postToController()" value="Submit">                   
+                    </div>
+                </div>
+            </div>
+            <h4>{{this.value}}</h4>
+            <div class="popupButtons flexMiddle stretch">
+                {{!-- hide cancel button after 10 minutes --}}
+                <form target = "_blank" id="ratePopupForm" method="post" action="/orders/{{this._id}}/setOrderRating?_method=PATCH">
+                    <button id="ratePopupButton" name="rating" value="0" class="doneButton" onclick="showRateSucPopup()">Submit</button>
+                </form>
+
+            </div>
+        </div>
+        </div>
+
+        {{!Cancel popup}}   
+
+        <div id="cancelPopup" class="colMiddle" style="display: none;">
+        <div id="cancelPopupModal">
+            <div class="flexBetween exitModal">
+                <i onclick="hideCancelPopup()" class="fas fa-times"></i>
+            </div>
+            <h4>Are you sure you want to cancel your order?</h4>
+            <div class="popupButtons flexMiddle stretch">
+                <button class="changeButton" onclick="hideCancelPopup()">No</button>
+                
+                <form target = "_blank" id="cancelPopupForm" method="post" action="/orders/{{this._id}}/setOrderCancelled?_method=PATCH">
+                    <button name="Yes" value="PATCH" class="doneButton" onclick="showCancelSucPopup()">Yes</button>
+                </form>
+                {{!-- now the done button will redirect the page to vendors page, 
+                to make it different from the change button --}}
+            </div>
+        </div>
+        
+        </div>  
+        
+        <div id="cancelSucPopup" class="colMiddle" style="display: none;">
+        <div id="cancelPopupModal">
+            <div class="flexBetween exitModal">
+                <i onclick="hideCancelSucPopup()" class="fas fa-times"></i>
+            </div>
+            <h4>Your Order has been Successfully Cancelled</h4>
+            <div class="popupButtons flexMiddle stretch">
+                <button class="changeButton" onclick="hideCancelSucPopup()">Done</button>
+            </div>
+        </div>
+        
+        </div> 
+
+        <div id="rateSucPopup" class="colMiddle" style="display: none;">
+        <div id="cancelPopupModal">
+            <div class="flexBetween exitModal">
+                <i onclick="hideRateSucPopup()" class="fas fa-times"></i>
+            </div>
+            <div class="card-body text-center"> <img src=" https://i.imgur.com/d2dKtI7.png" height="100" width="100">
+            <h4>Your Rate Has Been Received</h4>
+            </div>
+            <div class="popupButtons flexMiddle stretch">
+                <button class="changeButton" onclick="hideRateSucPopup()">Done</button>
+            </div>
+        </div>
+        
+        </div> 
+
+        <div id="changePopup" class="colMiddle" style="display: none;">
+        <div id="cancelPopupModal">
+            <div class="flexBetween exitModal">
+                <i onclick="hideChangePopup()" class="fas fa-times"></i>
+            </div>
+            <h4>Are you sure you want to change your order?</h4>
+            <div class="popupButtons flexMiddle stretch">
+                <button class="changeButton" onclick="hideChangePopup()">No</button>
+                
+                <button id="changeOrder" class="doneButton" onclick="location.href='/orders/id/changeOrder';hideChangePopup()">Yes</button>
+
+            </div>
+        </div>
+        
+        </div>
+
+    <script>
+            const showRatePopup = (id) => {
+                let popup = document.getElementById("ratePopup");
+                popup.style.display = "flex";
+                let form = document.getElementById("ratePopupForm");
+                form.action = `/orders/${id}/setOrderRating?_method=PATCH`;
+            }
+            const hideRatePopup = () => {
+                let popup = document.getElementById("ratePopup");
+                popup.style.display = "none";
+            }
+            const showCancelPopup = (id) => {
+                let cancelPopup = document.getElementById("cancelPopup");
+                cancelPopup.style.display = "flex";
+                let form = document.getElementById("cancelPopupForm");
+                form.action = `/orders/${id}/setOrderCancelled?_method=PATCH`;
+            }
+            const hideCancelPopup = () => {
+                let cancelPopup = document.getElementById("cancelPopup");
+                cancelPopup.style.display = "none";
+                }
+            
+            const showCancelSucPopup = () => {
+                hideCancelPopup();
+                let cancelSucPopup = document.getElementById("cancelSucPopup");
+                cancelSucPopup.style.display = "flex";
+                }
+            const hideCancelSucPopup = () => {
+                let cancelSucPopup = document.getElementById("cancelSucPopup");
+                cancelSucPopup.style.display = "none";
+                refreshPage();
+                }
+            const showRateSucPopup = () => {
+                hideRatePopup();
+                let rateSucPopup = document.getElementById("rateSucPopup");
+                rateSucPopup.style.display = "flex";
+                }
+            const hideRateSucPopup = () => {
+                let rateSucPopup = document.getElementById("rateSucPopup");
+                rateSucPopup.style.display = "none";
+                refreshPage();
+                }
+            const ratingvalue = () => {
+                let ratingvalue = document.getElementById("")
+            }
+            const setRating = (num) => {
+                let rating = document.getElementById("ratePopupButton");
+                rating.value = num;
+
+            }
+            const showChangePopup = (id) => {
+                let changePopup = document.getElementById("changePopup");
+                changePopup.style.display = "flex";
+                
+                let changeOrder = document.getElementById("changeOrder");
+                changeOrder.onclick = function onclick(event) {
+                location.href=`/orders/${id}/changeOrder`;hideChangePopup();}
+            }
+            const hideChangePopup = () => {
+                let changePopup = document.getElementById("changePopup");
+                changePopup.style.display = "none";
+            }
+
+            function refreshPage() {
+                window.location.reload(); 
+        }
+
+    </script>
+   
+</section>
