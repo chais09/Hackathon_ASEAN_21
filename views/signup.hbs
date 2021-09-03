@@ -1,36 +1,84 @@
-<section id="signupform">
-  <h1>Sign Up</h1>
-  <div class="signupform-signup">
-    <form class="form" method="post" action="/customer/signup">
-       <label>
-        Given Name
-        <input placeholder="Given Name" name="givenName" />
-      </label>
-      <label>
-        Family Name
-        <input placeholder="Family Name" name="familyName" />
-      </label>
-      <label>
-        Email
-        <input placeholder="email" name="username" value ={{preEmail}}>
-        <a style="color:red;"> {{email_valid_fail}} </a>
-      </label>
-      <label class="mt20">
-        Password
-        <input placeholder="password" type="password" name="password" />
-        {{#if password_valid_fail}}
-          <div id = "passord_valid_fail">
-            <p>1. At least one alphabet (upper or lower case A-Z)</p>
-            <p>2. At least one numerical digit (0-9)</p>
-            <p>3. A length of at least 8 characters </p>
-          </div>
-        {{/if}}
-      </label>
-      <input type="submit" value="submit">
-    </form>
-    </div>
-  <div class="signup_fail">
-    <a style="color:red;"> {{signup_message}} </a>
-  </div>
+<section class="my-login-page">
+	<section class="h-100">
+		<div class="container h-100">
+			<div class="row justify-content-md-center h-100">
+				<div class="card-wrapper">
+					<div class="brand">
+						<img src="img/logo.jpg" alt="bootstrap 4 login page">
+					</div>
+					<div class="card fat">
+						<div class="card-body">
+							<h4 class="card-title">Register</h4>
+							<form method="post" class="my-login-validation"  action = "/signup">
+								<div class="form-group">
+									<label for="name">Name</label>
+									<input id="name" type="text" class="form-control" name="name" required autofocus>
+                  {{#if error}}
+									<div class="invalid">
+										What's your name?
+									</div>
+                  {{/if}}
+								</div>
 
+								<div class="form-group">
+									<label for="email">E-Mail Address</label>
+									<input id="email" type="email" class="form-control" name="email" required>
+                  {{#if error}}
+									<div class="invalid">
+										Your email is invalid
+									</div>
+                  {{/if}}
+								</div>
+
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input id="password" type="password" class="form-control" name="password" required data-eye>
+                  {{#if error}}
+									<div class="invalid">
+										Password is required
+									</div>
+                  {{/if}}
+								</div>
+
+                 <div class="form-group">
+									<label for="confirm_password">Confirm Password</label>
+									<input id="confirm_password" type="password" class="form-control" name="confirm_password" required>
+                  {{#if error}}
+									<div class="invalid">
+										Please reenter the same password!
+									</div>
+                  {{/if}}
+								</div>
+
+                <div class="form-group">
+									<label for="age">Age</label>
+									<input id="age" type="number" class="form-control" name="age" min="0" max = "100" required>
+                  {{#if error}}
+									<div class="invalid">
+										Your Age is invalid
+									</div>
+                  {{/if}}
+								</div>
+
+                <div class="form-group">
+									<label for="occupation">Occupation</label>
+									<input id="occupation" type="occupation" class="form-control" name="occupation" required>
+                  {{#if error}}
+									<div class="invalid">
+										Your Occupation is invalid
+									</div>
+                  {{/if}}
+								</div>
+                <input class="btn btn-success btn-block" type="submit" value="Register"> 
+                </form>
+                
+								<div class="mt-4 text-center">
+									Already have an account? <a href="/login">Login</a>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </section>

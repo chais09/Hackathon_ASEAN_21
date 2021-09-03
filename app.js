@@ -5,6 +5,9 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const exphbs = require("express-handlebars");
+const session = require("express-session");
+const passport = require("passport");
+const flash = require("connect-flash");
 app.set("views", path.join(__dirname, "./views"));
 app.engine(
   "hbs",
@@ -16,9 +19,43 @@ app.engine(
 );
 app.set("view engine", "hbs");
 app.use(express.json());
+app.use(flash());
 // app.use(morgan('common'))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
+app.use(
+  session({
+    secret: "passport",
+    saveUninitialized: false,
+    resave: false,
+  })
+);
+
+// initialize the passport and session
+app.use(passport.initialize());
+app.use(passport.session());
+
+// this middleware is used for the locals variable
+// for render in the page
+app.use(function (req, res, next) {
+  // if someone is authenticated
+  if (req.session.passport) {
+    // req.session.type_of_user can be in three states, which is{ undefined , "customer", "vendor"}
+    if (req.session.type_of_user) {
+      res.locals.type_of_user = req.session.type_of_user;
+      // we make the res.locals.customer_id to be the customer_id(passport.user)
+      if (req.session.type_of_user == "customer") {
+        res.locals.customer_id = req.session.passport.user;
+      } else {
+        // we make the res.locals.vendor_id to be the vendor_id(passport.user)
+        res.locals.vendor_id = req.session.passport.user;
+      }
+    }
+  }
+  res.locals.error = req.flash("error");
+  next();
+});
+
 
 app.get("/", (req, res, next) => {
     res.render("home");

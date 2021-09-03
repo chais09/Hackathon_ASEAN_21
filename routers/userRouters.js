@@ -17,7 +17,7 @@ const validation = [
       .withMessage('password not valid')
       .matches(/[A-Za-z]/)
       .withMessage('password not valid'),
-    check('username')
+    check('email')
         .exists()
         .withMessage('username is required')
         .isEmail()
@@ -30,30 +30,7 @@ function handleValidationErrors(req, res, next) {
 
   // if there are error
   if (!errors.isEmpty()) {
-    var username_error = 0;
-    var pass_error = 0;
-
-    // find what kind of error is that
-    errors.array().forEach(error =>{
-      if (error.msg == "username not valid"){
-        username_error += 1;
-      }
-      else if (error.msg == "password not valid"){
-        pass_error += 1;
-      }
-    })
-    // both email and password are invalid
-    if (username_error >= 1 && pass_error >= 1){
-      return res.render("signup",{email_valid_fail: "Require a valid email", password_valid_fail: true})
-    }
-    // email is invalid
-    else if (username_error >= 1){
-      return res.render("signup",{email_valid_fail: "Required a valid email"})
-    }
-    // password is invalid
-    else{
-      return res.render("signup",{password_valid_fail: true})
-    }
+    return res.render("signup",{error: true})
   }
   next();
 };
@@ -63,7 +40,7 @@ const redirectToLogin = (req, res, next) => {
   if (req.session.passport) {
     next();
   } else {
-    res.redirect("/customer/login");
+    res.redirect("/login");
   }
 };
 
@@ -89,7 +66,7 @@ router.get("/logout", (req, res, next) => {
 router.post(
   "/login",
   passport.authenticate("local-customer-login", {
-    failureRedirect: "/customer/login",
+    failureRedirect: "/login",
     failureFlash: "Incorrect email or password",
   }),
   function (req, res, next) {
@@ -101,8 +78,8 @@ router.post(
 router.post(
   "/signup",validation, handleValidationErrors,
   passport.authenticate("local-customer-signup", {
-    failureRedirect: "/customer/signup",
-    failureFlash: true,
+    failureRedirect: "/signup",
+    failureFlash: "Incorrect email or password",
   }),
   function (req, res, next) {
     req.flash("success", "Login Success..");
