@@ -2,7 +2,12 @@ require("dotenv").config();
 // MongoDB connection
 const mongoose = require("mongoose");
 
-let connectionURL = 'mongodb://localhost:27017/Hackathon'
+// let connectionURL = 'mongodb://localhost:27017/Hackathon'
+
+
+connectionString = "mongodb+srv://<username>:<password>@cluster0.mrhom.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+connectionURL = connectionString.replace("<username>",process.env.MONGO_USERNAME).replace("<password>",process.env.MONGO_PASSWORD)
+
 mongoose.connect(connectionURL, {useNewUrlParser: true, useUnifiedTopology: true,useCreateIndex: true, useFindAndModify: false, dbName: 'Hackathon'})
 const db = mongoose.connection;
 
@@ -97,6 +102,9 @@ app.get("/", (req, res, next) => {
 
 const userRouters = require("./routers/userRouters");
 app.use("/", userRouters);
+
+const quesRouters = require("./routers/quesRouter");
+app.use("/question", quesRouters);
 
 app.get("*", function (req, res, next) {
     res.locals.user = req.user || null;

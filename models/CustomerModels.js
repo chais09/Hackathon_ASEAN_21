@@ -7,6 +7,8 @@ const CustomerSchema = new mongoose.Schema(
       email: { type: String, required: true, unique: true },
       password: { type: String, required: true },
       age: { type: Number, required: true },
+      level: {type:Number, required: true},
+      energy: {type:Number, required: true},
       occupation: { type: String, required: true}
     },
     { versionKey: false }

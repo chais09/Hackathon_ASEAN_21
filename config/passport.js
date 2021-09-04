@@ -94,6 +94,8 @@ passport.deserializeUser(function(_id, done) {
                   newUser.name = req.body.name;
                   newUser.age = req.body.age;
                   newUser.occupation = req.body.occupation;
+                  newUser.level = 0;
+                  newUser.energy = 6;
                   
                   // and save the user
                   newUser.save(function(err) {
