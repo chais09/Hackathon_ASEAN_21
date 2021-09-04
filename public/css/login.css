@@ -87,6 +87,10 @@ body.my-login-page {
     margin-top: 150%
 }
 
+.margin{
+    margin: auto;
+}
+
 .side_p {
     font-weight: bold;
     margin-top: 90%;
