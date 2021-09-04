@@ -54,7 +54,7 @@ passport.deserializeUser(function(_id, done) {
                   // server uses that identifier to identify different clients
                   // all this is handled by the session middleware that we are using 
                   req.session.email = email; // for demonstration of using express-session
-                  console.log("passport success")
+                //   console.log("passport success")
                   // done() is used by the strategy to set the authentication status with
                   // details of the user who was authenticated
                   return done(null, user, req.flash('loginMessage', 'Login successful'));
@@ -82,7 +82,7 @@ passport.deserializeUser(function(_id, done) {
                   return done(err);
               }
               if (existingUser) {
-                  console.log("existing");
+                //   console.log("existing");
                   return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
               }
               else {

@@ -73,11 +73,11 @@ app.use(function (req, res, next) {
   console.log("app.use")
   if (req.session.passport) {
     // req.session.type_of_user can be in three states, which is{ undefined , "customer", "vendor"}
-    console.log("session");
-    console.log(req.session.passport);
+    // console.log("session");
+    // console.log(req.session.passport);
     res.locals.customer_name = req.session.passport.user.name
     if (req.session.type_of_user) {
-      console.log(req.session.type_of_user);
+      // console.log(req.session.type_of_user);
       res.locals.type_of_user = req.session.type_of_user;
       // we make the res.locals.customer_id to be the customer_id(passport.user)
       // if (req.session.type_of_user == "customer") {
@@ -92,9 +92,23 @@ app.use(function (req, res, next) {
   next();
 });
 
+const redirectToLogin = (req, res, next) => {
+  // console.log(req.session);
+  if (req.session.passport) {
+    // console.log(req.session.passport)
+    next();
+  } else {
+    res.redirect("/login");
+  }
+};
 
-app.get("/", (req, res, next) => {
-    res.render("home");
+
+const {Customer} = require('./models/CustomerModels.js')
+app.get("/",redirectToLogin, async (req, res, next) => {
+    energy = await Customer.findOne({_id:req.session.passport.user._id}, {energy:true})
+    console.log(energy)
+
+    res.render("home", {energy: energy.energy});
   });
 // app.post("/login", (req, res, next) => {
 //   console.log(req.body)

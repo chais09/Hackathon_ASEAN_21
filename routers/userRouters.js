@@ -107,7 +107,7 @@ router.get("/read/read1", (req,res) => {
 router.get("/read/read2", (req,res) => {
   res.render("text1")
 })
-router.get("/read/read2", (req,res) => {
+router.get("/read/read3", (req,res) => {
   res.render("text2")
 })
 router.get("/profile/:id", userControllers.getCustDetails);
