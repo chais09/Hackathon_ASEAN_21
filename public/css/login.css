@@ -71,7 +71,7 @@ body.my-login-page {
     text-align: center;
     vertical-align: middle;
     grid-area: next;
-    background-color: white;
+
 }
 
 .grid-container_video {
@@ -83,24 +83,24 @@ body.my-login-page {
         'previous videoA videoA videoA videoA videoA videoA videoA videoA videoA videoA next';
 }
 
-.button_video_text{
-    margin-top:150%
+.button_video_text {
+    margin-top: 150%
 }
 
 .side_p {
     font-weight: bold;
     margin-top: 90%;
     text-align: center;
-    vertical-align: text-bottom;
+    vertical-align: middle;
     grid-area: previous;
-    background-color: white;
+
 }
 
 .center {
     margin: auto;
-    width: 70%;
+    /* width: 70%; */
     /* border: 3px solid green; */
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 .my-login-page .card .card-title {
