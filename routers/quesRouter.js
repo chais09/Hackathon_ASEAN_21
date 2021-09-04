@@ -16,5 +16,6 @@ const redirectToLogin = (req, res, next) => {
   
 
 router.get("/:id", questionController.getQuesNum);
+router.post("/ans/:id", questionController.markAnswer)
 //6132f83b257b92748cb71954
 module.exports = router;

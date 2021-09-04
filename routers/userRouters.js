@@ -101,6 +101,9 @@ router.post(
   }
 );
 
+router.get("/read/read1", (req,res) => {
+  res.render("video1")
+})
 router.get("/profile/:id", userControllers.getCustDetails);
 //6132f83b257b92748cb71954
 module.exports = router;

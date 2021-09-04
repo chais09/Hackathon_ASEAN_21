@@ -60,6 +60,38 @@ body.my-login-page {
     padding: 10px;
 }
 
+.vid1 {
+    grid-area: videoA;
+}
+.side_n{
+    margin-top: 90%;
+    text-align: center;
+    vertical-align: middle;
+    grid-area: next;
+}
+.grid-container_video {
+    display: grid;
+    grid-template-areas: 
+    'previous videoA videoA videoA videoA videoA videoA videoA videoA videoA videoA next'
+    'previous videoA videoA videoA videoA videoA videoA videoA videoA videoA videoA next'
+    'previous videoA videoA videoA videoA videoA videoA videoA videoA videoA videoA next';
+}
+
+
+.side_p{
+    margin-top: 90%;
+    text-align: center;
+    vertical-align:text-bottom;
+    grid-area: previous;
+}
+
+.center {
+    margin: auto;
+    width: 70%;
+    /* border: 3px solid green; */
+    padding: 10px;
+  }
+
 .my-login-page .card .card-title {
     margin-bottom: 30px;
 }

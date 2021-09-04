@@ -10,6 +10,20 @@ const QuestionSchema = new mongoose.Schema(
     { versionKey: false }
   );
 
+
+const CusAnswerSchema = new mongoose.Schema(
+  {
+    quesId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    cusId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    cus_ans: {type: String, required: true},
+    ques_no : {type: Number, required: true},
+    ques_ques : {type: String, required: true},
+    ques_ans: {type: String, required: true}
+  }
+)  
+
+
 module.exports = {
+  cusAnswers: mongoose.model("cusAnswer", CusAnswerSchema),
   questions: mongoose.model("questions", QuestionSchema),
 };
