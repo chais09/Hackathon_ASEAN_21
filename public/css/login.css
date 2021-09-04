@@ -63,26 +63,34 @@ body.my-login-page {
 .vid1 {
     grid-area: videoA;
 }
-.side_n{
+
+.side_n {
+
+    font-weight: bold;
     margin-top: 90%;
     text-align: center;
     vertical-align: middle;
     grid-area: next;
+    background-color: white;
 }
+
 .grid-container_video {
+    padding-top: 30px;
     display: grid;
-    grid-template-areas: 
-    'previous videoA videoA videoA videoA videoA videoA videoA videoA videoA videoA next'
-    'previous videoA videoA videoA videoA videoA videoA videoA videoA videoA videoA next'
-    'previous videoA videoA videoA videoA videoA videoA videoA videoA videoA videoA next';
+    grid-template-areas:
+        'previous videoA videoA videoA videoA videoA videoA videoA videoA videoA videoA next'
+        'previous videoA videoA videoA videoA videoA videoA videoA videoA videoA videoA next'
+        'previous videoA videoA videoA videoA videoA videoA videoA videoA videoA videoA next';
 }
 
 
-.side_p{
+.side_p {
+    font-weight: bold;
     margin-top: 90%;
     text-align: center;
-    vertical-align:text-bottom;
+    vertical-align: text-bottom;
     grid-area: previous;
+    background-color: white;
 }
 
 .center {
@@ -90,7 +98,7 @@ body.my-login-page {
     width: 70%;
     /* border: 3px solid green; */
     padding: 10px;
-  }
+}
 
 .my-login-page .card .card-title {
     margin-bottom: 30px;
