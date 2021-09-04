@@ -16,14 +16,14 @@
         </div>
         <form class="form" method="post" action="/question/ans/{{quesno}}">
 
-            <label class="answer" for="answer">Answer</label>
+            <label class="answer" for="answer">Answer: </label>
 
             <select name="answer" id="answer">
                 {{#each questionoption}}
                 <option value="{{this}}">{{this}}</option>
                 {{/each}}
             </select>
-            <div><input class="btn-success" type="submit" value="submit"></div>
+            <div><input style="margin-top: 20px;" class="btn-success btn-lg" type="submit" value="Submit"></div>
         </form>
     </div>
 
