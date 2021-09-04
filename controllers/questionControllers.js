@@ -5,13 +5,13 @@ const getQuesNum = async (req, res) => {
     res.send(question)
 
     // var newUser = new questions();
-    // newUser.questionNo = 1;
-    // newUser.questionQues = "1. What is financial literacy?"
-    // newUser.questionOption = new Array ("a. Knowing and understanding how finances work",
-    //   "b. Being able to read numbers",
-    //   "c. Getting good grades in algebra",
-    //   "d. Getting good grades in math");
-    // newUser.answer = "a. Knowing and understanding how finances work";
+    // newUser.questionNo = 10;
+    // newUser.questionQues = "Suppose your net income is $30,000. Considering the rule of 20/10, how much debt you can have at most?"
+    // newUser.questionOption = new Array ("a. $1,000",
+    // "b. $3,000",
+    // "c. $6,000",
+    // "d. $9,000");
+    // newUser.answer = " ";
     // // and save the user
     // newUser.save()
       
