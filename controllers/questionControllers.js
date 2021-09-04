@@ -1,5 +1,6 @@
 const { questions } = require('../models/questionModels.js')
 const { cusAnswers } = require('../models/questionModels.js')
+let ObjectId = require("mongoose").Types.ObjectId;
 
 const getQuesNum = async (req, res) => {
   let question = await questions.findOne({ questionNo: req.params.id }, { questionNo: true, questionQues: true, answer: true, questionOption: true });
@@ -19,23 +20,33 @@ const getQuesNum = async (req, res) => {
 
 const markAnswer = async (req, res) => {
 
-  cus_ans = req.body.cus_ans;
+  // console.log(req.params.id)
+  // console.log(req.body)
+  cus_ans = req.body.answer;
   cus_id = req.session.passport.user._id
-  ques_id = req.params.id;
-  ques = questions.findOne({ _id: ques_id }, { questionNo: true, questionQues: true, answer: true })
+  ques_no = req.params.id;
+  ques = await questions.findOne({ questionNo: ques_no }, { _id: true, questionNo: true, questionQues: true, answer: true })
   ques_ques = ques.questionQues
   ques_ans = ques.answer
-  ques_no = ques.questionNo
+  ques_id = ques._id
 
   newCusAnswer = new cusAnswers();
-  newCusAnswer.quesID = ques_id;
-  newCusAnswer.cusID = cus_id;
-  newCusAnswer.cusAns = cus_ans;
+  newCusAnswer.quesId = new ObjectId(`${String(ques_id)}`);
+  newCusAnswer.cusId = new ObjectId(`${String(cus_id)}`);
+  newCusAnswer.cus_ans = cus_ans;
   newCusAnswer.ques_no = ques_no
   newCusAnswer.ques_ques = ques_ques
   newCusAnswer.ques_ans = ques_ans;
 
   newCusAnswer.save();
+
+
+  console.log(newCusAnswer.quesId)
+  console.log(newCusAnswer.cusId)
+  console.log( newCusAnswer.cus_ans)
+  console.log(newCusAnswer.ques_no)
+  console.log(newCusAnswer.ques_ques)
+  console.log(newCusAnswer.ques_ans)
 
   let tf;
   if (ques.ans != cus_ans) {
