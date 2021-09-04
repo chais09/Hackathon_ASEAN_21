@@ -1,5 +1,6 @@
 const { questions } = require('../models/questionModels.js')
 const { cusAnswers } = require('../models/questionModels.js')
+const {Customer} = require('../models/CustomerModels.js')
 let ObjectId = require("mongoose").Types.ObjectId;
 
 const getQuesNum = async (req, res) => {
@@ -45,6 +46,12 @@ const markAnswer = async (req, res) => {
   else {
     tf = false
   }
+  let customers = await Customer.findOne({_id: cus_id}, { energy: true});
+  // console.log(customers.energy)
+  let energy_after = parseInt(customers.energy) - 1;
+  let doc = await Customer.findOneAndUpdate({_id:customers._id}, {energy: energy_after});
+
+
 
   newCusAnswer = new cusAnswers();
   newCusAnswer.quesId = new ObjectId(`${String(ques_id)}`);
@@ -65,7 +72,7 @@ const markAnswer = async (req, res) => {
   // console.log(newCusAnswer.ques_ans)
 
   let next_ques = parseInt(ques_no) + 1;
-  console.log(next_ques);
+  // console.log(next_ques);
 
   res.render("result", {
     trueFalse: tf, question: ques_ques, quesno: ques_no,
