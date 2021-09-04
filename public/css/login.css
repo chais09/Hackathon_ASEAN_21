@@ -130,3 +130,17 @@ body.my-login-page {
         max-width: 1140px;
     }
 }
+
+.level-stages {
+
+    align-items: center;
+}
+
+.level-stages img {
+    padding-top: 20%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    width: 70%;
+}
