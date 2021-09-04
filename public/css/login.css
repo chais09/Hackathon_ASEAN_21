@@ -18,7 +18,7 @@ body.my-login-page {
     width: 155px;
     height: 155px;
     left: 35px;
-    top: -55px;
+    top: -45px;
 }
 
 #name {
@@ -39,6 +39,7 @@ body.my-login-page {
     box-shadow: 0 4px 8px rgba(0, 0, 0, .05);
     position: relative;
     z-index: 1;
+    background-color: white;
 }
 
 
