@@ -87,7 +87,7 @@ body.my-login-page {
     margin-top: 150%
 }
 
-.margin{
+.margin {
     margin: auto;
 }
 
@@ -209,4 +209,30 @@ body.my-login-page {
     height: 50px;
     width: 130px;
     border-radius: 15%;
+}
+
+.quest_no {
+    font-weight: bold;
+    font-size: 36px;
+
+
+
+}
+
+.question {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.quest_option {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 20px;
+
+}
+
+.answer {
+    font-weight: bold;
+    font-size: 20px;
 }
