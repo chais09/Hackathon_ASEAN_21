@@ -131,16 +131,24 @@ body.my-login-page {
     }
 }
 
-.level-stages {
-
-    align-items: center;
-}
 
 .level-stages img {
-    padding-top: 20%;
+    padding-top: 300px;
+    padding-bottom: 300px;
     display: block;
     margin-left: auto;
     margin-right: auto;
     height: auto;
     width: 70%;
+}
+
+.stage-1 {
+    display: block;
+    height: 5vw;
+    width: 6.35vw;
+    background-color: black;
+    opacity: 0.1;
+    border-radius: 50%;
+    /* padding-top: 100px; */
+
 }
