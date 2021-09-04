@@ -30,6 +30,14 @@ const markAnswer = async (req, res) => {
   ques_ans = ques.answer
   ques_id = ques._id
 
+  let tf;
+  if ((ques_ans).localeCompare(cus_ans) == 0) {
+    tf = true
+  }
+  else {
+    tf = false
+  }
+
   newCusAnswer = new cusAnswers();
   newCusAnswer.quesId = new ObjectId(`${String(ques_id)}`);
   newCusAnswer.cusId = new ObjectId(`${String(cus_id)}`);
@@ -41,21 +49,14 @@ const markAnswer = async (req, res) => {
   newCusAnswer.save();
 
 
-  console.log(newCusAnswer.quesId)
-  console.log(newCusAnswer.cusId)
-  console.log(newCusAnswer.cus_ans)
-  console.log(newCusAnswer.ques_no)
-  console.log(newCusAnswer.ques_ques)
-  console.log(newCusAnswer.ques_ans)
+  // console.log(newCusAnswer.quesId)
+  // console.log(newCusAnswer.cusId)
+  // console.log(newCusAnswer.cus_ans)
+  // console.log(newCusAnswer.ques_no)
+  // console.log(newCusAnswer.ques_ques)
+  // console.log(newCusAnswer.ques_ans)
 
-  let tf;
-  if (ques.ans != cus_ans) {
-    tf = false
-  }
-  else {
-    tf = true
-  }
-
+  
   res.render("result", {
     trueFalse: tf, ques_ques: ques_ques, ques_no: ques_no,
     ques_ans: ques_ans, cus_ans: cus_ans
