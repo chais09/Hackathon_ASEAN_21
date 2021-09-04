@@ -70,16 +70,17 @@ app.use(function (req, res, next) {
     // req.session.type_of_user can be in three states, which is{ undefined , "customer", "vendor"}
     console.log("session");
     console.log(req.session.passport);
+    res.locals.customer_name = req.session.passport.user.name
     if (req.session.type_of_user) {
       console.log(req.session.type_of_user);
       res.locals.type_of_user = req.session.type_of_user;
       // we make the res.locals.customer_id to be the customer_id(passport.user)
-      if (req.session.type_of_user == "customer") {
-        res.locals.customer_id = req.session.passport.user;
-      } else {
-        // we make the res.locals.vendor_id to be the vendor_id(passport.user)
-        res.locals.vendor_id = req.session.passport.user;
-      }
+      // if (req.session.type_of_user == "customer") {
+      //   res.locals.customer_id = req.session.passport.user;
+      // } else {
+      //   // we make the res.locals.vendor_id to be the vendor_id(passport.user)
+      //   res.locals.vendor_id = req.session.passport.user;
+      // }
     }
   }
   res.locals.error = req.flash("error");
