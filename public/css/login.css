@@ -131,24 +131,33 @@ body.my-login-page {
     }
 }
 
+.level-stages {
 
-.level-stages img {
     padding-top: 300px;
     padding-bottom: 300px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    height: auto;
-    width: 70%;
 }
 
-.stage-1 {
+.level-stages img {
     display: block;
-    height: 5vw;
-    width: 6.35vw;
-    background-color: black;
-    opacity: 0.1;
-    border-radius: 50%;
-    /* padding-top: 100px; */
+    height: 300px;
+    width: 876px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
+.energy {
+    font-size: 30px;
+    padding-top: 50px;
+    padding-left: 50px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.energy-slot {
+    background-color: White;
+    height: 50px;
+    width: 100px;
+    border-radius: 20%;
+    padding-top: 15px;
+    padding-left: 70px;
 }
