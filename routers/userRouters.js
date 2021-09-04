@@ -1,39 +1,47 @@
 const express = require("express");
+
 const router = express.Router();
 const userControllers = require("../controllers/userControllers");
 const passport = require("passport");
 require("../config/passport")(passport);
-const CustomerModel = require("../models/userModels");
+const CustomerModel = require("../models/CustomerModels");
 const { check, validationResult } = require('express-validator');
+const bodyParser = require('body-parser')
+// create application/json parser
+// var jsonParser = bodyParser.json()
+ 
+// create application/x-www-form-urlencoded parser
+// var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 
 // the validator for checking customer password and email
 // when doing customer registration 
-const validation = [
-    check('password')
-      .exists()
-      .isLength({ min: 8 })
-      .withMessage('password not valid')
-      .matches(/\d/)
-      .withMessage('password not valid')
-      .matches(/[A-Za-z]/)
-      .withMessage('password not valid'),
-    check('email')
-        .exists()
-        .withMessage('username is required')
-        .isEmail()
-        .withMessage('username not valid'),
-];
+// const validation = [
+//     check('password')
+//       .exists()
+//       .isLength({ min: 8 })
+//       .withMessage('password not valid')
+//       .matches(/\d/)
+//       .withMessage('password not valid')
+//       .matches(/[A-Za-z]/)
+//       .withMessage('password not valid'),
+//     check('email')
+//         .exists()
+//         .withMessage('username is required')
+//         .isEmail()
+//         .withMessage('username not valid'),
+// ];
 
-// the errors handle for customer email and password validation
-function handleValidationErrors(req, res, next) {
-  const errors = validationResult(req);
+// // the errors handle for customer email and password validation
+// function handleValidationErrors(req, res, next) {
+//   const errors = validationResult(req);
 
-  // if there are error
-  if (!errors.isEmpty()) {
-    return res.render("signup",{error: true})
-  }
-  next();
-};
+//   // if there are error
+//   if (!errors.isEmpty()) {
+//     return res.render("signup",{error: true})
+//   }
+//   next();
+// };
 
 const redirectToLogin = (req, res, next) => {
   console.log(req.session);
@@ -43,6 +51,8 @@ const redirectToLogin = (req, res, next) => {
     res.redirect("/login");
   }
 };
+
+
 
 router.get("/login", (req, res, next) => {
   res.render("login");
@@ -65,7 +75,7 @@ router.get("/logout", (req, res, next) => {
 
 router.post(
   "/login",
-  passport.authenticate("local-customer-login", {
+  passport.authenticate("local-login", {
     failureRedirect: "/login",
     failureFlash: "Incorrect email or password",
   }),
@@ -75,8 +85,12 @@ router.post(
   }
 );
 
+// router.post("/login", (req,res, next) => {
+//   console.log(req.body.email);
+// })
+
 router.post(
-  "/signup",validation, handleValidationErrors,
+  "/signup", 
   passport.authenticate("local-customer-signup", {
     failureRedirect: "/signup",
     failureFlash: "Incorrect email or password",
@@ -87,6 +101,6 @@ router.post(
   }
 );
 
-router.get("/profile", redirectToLogin, userControllers.getCustDetails);
-
+router.get("/profile/:id", userControllers.getCustDetails);
+//6132f83b257b92748cb71954
 module.exports = router;

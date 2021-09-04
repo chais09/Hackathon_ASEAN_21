@@ -2,29 +2,32 @@ require("dotenv").config();
 // MongoDB connection
 const mongoose = require("mongoose");
 
-mongoose
-  .connect("mongodb+srv://chais:pQJu06WJpu4N0zdE@cluster0.mrhom.mongodb.net/test?authSource=admin&replicaSet=atlas-mreudv-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true, // for uniqueness constraints on fields
-    useFindAndModify: false,
-    dbName: "Hackathon",
-  })
-  .then(() => console.log("MongoDB Connected..."))
-  .catch((err) => console.log(err));
-
+let connectionURL = 'mongodb://localhost:27017/Hackathon'
+mongoose.connect(connectionURL, {useNewUrlParser: true, useUnifiedTopology: true,useCreateIndex: true, useFindAndModify: false, dbName: 'Hackathon'})
 const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
+// event handlers
+db.on('error', console.error.bind(console, 'connection error:'))
+db.once('open', () => {
+    console.log('connected to Mongo')
+})
 
 
 
 const express = require("express");
+const bodyParser = require('body-parser');
 const path = require("path");
 const app = express();
 const exphbs = require("express-handlebars");
 const session = require("express-session");
 const passport = require("passport");
+const cors = require("cors");
 const flash = require("connect-flash");
+
+
+var methodOverride = require("method-override");
+app.use(methodOverride("_method"));
+
 app.set("views", path.join(__dirname, "./views"));
 app.engine(
   "hbs",
@@ -35,8 +38,14 @@ app.engine(
   })
 );
 app.set("view engine", "hbs");
+// app.use(bodyParser.urlencoded({ extended: false}))
+
+// parse application/json
+app.use(bodyParser.json())
+ 
 app.use(express.json());
 app.use(flash());
+app.use(cors());
 // app.use(morgan('common'))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
@@ -56,9 +65,13 @@ app.use(passport.session());
 // for render in the page
 app.use(function (req, res, next) {
   // if someone is authenticated
+  console.log("app.use")
   if (req.session.passport) {
     // req.session.type_of_user can be in three states, which is{ undefined , "customer", "vendor"}
+    console.log("session");
+    console.log(req.session.passport);
     if (req.session.type_of_user) {
+      console.log(req.session.type_of_user);
       res.locals.type_of_user = req.session.type_of_user;
       // we make the res.locals.customer_id to be the customer_id(passport.user)
       if (req.session.type_of_user == "customer") {
@@ -77,6 +90,9 @@ app.use(function (req, res, next) {
 app.get("/", (req, res, next) => {
     res.render("home");
   });
+// app.post("/login", (req, res, next) => {
+//   console.log(req.body)
+// });
 
 const userRouters = require("./routers/userRouters");
 app.use("/", userRouters);
@@ -92,4 +108,10 @@ app.get("*", function (req, res, next) {
     console.log(`The App is listening on port ${port}!`);
   });
   
+
+
+
+
+
+
   module.exports = app;
