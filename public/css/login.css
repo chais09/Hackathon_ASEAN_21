@@ -1,15 +1,33 @@
 html,
 body {
     height: 100%;
+    background-color: rgba(249, 251, 255, 1);
 }
 
 body.my-login-page {
-    background-color: #f7f9fb;
+    background-color: rgba(249, 251, 255, 1);
     font-size: 14px;
 }
 
-.invalid{
-    color:  red;
+.navbar {
+    background-color: white
+}
+
+#logo {
+    position: absolute;
+    width: 155px;
+    height: 155px;
+    left: 35px;
+    top: -55px;
+}
+
+#name {
+    color: black;
+    font-weight: bold;
+}
+
+.invalid {
+    color: red;
 }
 
 .my-login-page .brand {
@@ -76,5 +94,37 @@ body.my-login-page {
 
     .my-login-page .card.fat .card-body {
         padding: 15px;
+    }
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
     }
 }
