@@ -4,7 +4,15 @@ let ObjectId = require("mongoose").Types.ObjectId;
 
 const getQuesNum = async (req, res) => {
   let question = await questions.findOne({ questionNo: req.params.id }, { questionNo: true, questionQues: true, answer: true, questionOption: true });
-  res.render("ques", { "quesno": question.questionNo, "question": question.questionQues, "questionoption": question.questionOption })
+  let previous_ques;
+  if (question.questionNo >= 2) {
+    previous_ques = parseInt(question.questionNo) - 1;
+  }
+
+  res.render("ques", {
+    "quesno": question.questionNo, "question": question.questionQues, "questionoption": question.questionOption,
+    "previous_quesno": previous_ques
+  })
 
   // var newUser = new questions();
   // newUser.questionNo = 10;
@@ -56,10 +64,12 @@ const markAnswer = async (req, res) => {
   // console.log(newCusAnswer.ques_ques)
   // console.log(newCusAnswer.ques_ans)
 
-  
+  let next_ques = parseInt(ques_no) + 1;
+  console.log(next_ques);
+
   res.render("result", {
-    trueFalse: tf, ques_ques: ques_ques, ques_no: ques_no,
-    ques_ans: ques_ans, cus_ans: cus_ans
+    trueFalse: tf, question: ques_ques, quesno: ques_no,
+    ques_ans: ques_ans, cus_ans: cus_ans, next_ques: next_ques
   })
 }
 

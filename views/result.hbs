@@ -1,39 +1,27 @@
 <section id="video_page" class="grid-container_video">
-    <div class="result">
-        {{#if trueFalse}}
-        <p>Correct</p>
-        {{else}}
-        <p>Incorrect</p>
-        {{/if}}
-
-    </div>
 
 
-    <div onclick="location.href='#';" id="video_n" class="side_n" style="cursor: pointer;">
+    <div onclick="location.href='/question/{{next_ques}}';" id="video_n" class="side_n" style="cursor: pointer;">
         <img src="/images/right_arrow2.svg" alt="right_button_2" width="60" height="60" class="button_video_text"></img>
     </div>
 
     <div id="vid1" class="vid1 center">
         <div class="quest_no">Question{{quesno}}</div>
         <div class="question">{{question}} </div>
-        <div class="quest_option">
-            <ul>
-                {{#each questionoption}}
-                <li>{{this}}</li>
-                {{/each}}
-            </ul>
+
+        <div class="result">
+            {{#if trueFalse}}
+            <div>Selected Answer is{{cus_ans}}</div>
+            <div>Correct</div>
+            {{else}}
+            <div>Incorrect</div>
+            <div>{{ques_ans}}</div>
+            {{/if}}
+
+
         </div>
-        <form class="form" method="post" action="/question/ans/{{{quesno}}}">
 
-            <label class="answer" for="answer">Answer</label>
 
-            <select name="answer" id="answer">
-                {{#each questionoption}}
-                <option value={{this}}>{{this}}</option>
-                {{/each}}
-            </select>
-            <div><input class="btn-success" type="submit" value="submit"></div>
-        </form>
     </div>
 
 
