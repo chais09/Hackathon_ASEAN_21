@@ -2,7 +2,7 @@ const {questions} = require('../models/questionModels.js')
 const {cusAnswers} = require('../models/questionModels.js')
 
 const getQuesNum = async (req, res) => {
-    let question = await questions.findOne({questionNo: req.params.id},{questionNo:true, questionQues: true, answer: true});
+    let question = await questions.findOne({questionNo: req.params.id},{questionNo:true, questionQues: true, answer: true, questionOption: true});
     res.send(question)
 
     // var newUser = new questions();
