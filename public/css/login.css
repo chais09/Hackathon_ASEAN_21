@@ -201,14 +201,18 @@ body.my-login-page {
     font-size: 30px;
     text-align: left;
     font-weight: bold;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
 }
 
 .energy-slot {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
     background-color: White;
     height: 50px;
     width: 130px;
-    border-radius: 15%;
+    border-radius: 15px;
+
 }
 
 .quest_no {
