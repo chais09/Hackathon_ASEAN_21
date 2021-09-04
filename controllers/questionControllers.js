@@ -43,20 +43,20 @@ const markAnswer = async (req, res) => {
 
   console.log(newCusAnswer.quesId)
   console.log(newCusAnswer.cusId)
-  console.log( newCusAnswer.cus_ans)
+  console.log(newCusAnswer.cus_ans)
   console.log(newCusAnswer.ques_no)
   console.log(newCusAnswer.ques_ques)
   console.log(newCusAnswer.ques_ans)
 
   let tf;
   if (ques.ans != cus_ans) {
-    tf = "false"
+    tf = false
   }
   else {
-    tf = "true"
+    tf = true
   }
 
-  res.render("asdd", {
+  res.render("result", {
     trueFalse: tf, ques_ques: ques_ques, ques_no: ques_no,
     ques_ans: ques_ans, cus_ans: cus_ans
   })

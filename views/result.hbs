@@ -1,6 +1,16 @@
 <section id="video_page" class="grid-container_video">
-    <div onclick="location.href='#';" id="video_p" class="side_p" style="cursor: pointer; text-align ">
-        <img src="/images/left_arrow2.svg" alt="left_button_2" width="60" height="60" class="button_video_text"></img>
+    <div class="result">
+        {{#if trueFalse}}
+        <p>Correct</p>
+        {{else}}
+        <p>Incorrect</p>
+        {{/if}}
+
+    </div>
+
+
+    <div onclick="location.href='#';" id="video_n" class="side_n" style="cursor: pointer;">
+        <img src="/images/right_arrow2.svg" alt="right_button_2" width="60" height="60" class="button_video_text"></img>
     </div>
 
     <div id="vid1" class="vid1 center">
@@ -13,13 +23,13 @@
                 {{/each}}
             </ul>
         </div>
-        <form class="form" method="post" action="/question/ans/{{quesno}}">
+        <form class="form" method="post" action="/question/ans/{{{quesno}}}">
 
             <label class="answer" for="answer">Answer</label>
 
             <select name="answer" id="answer">
                 {{#each questionoption}}
-                <option value="{{this}}">{{this}}</option>
+                <option value={{this}}>{{this}}</option>
                 {{/each}}
             </select>
             <div><input class="btn-success" type="submit" value="submit"></div>
