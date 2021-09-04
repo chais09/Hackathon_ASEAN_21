@@ -83,6 +83,9 @@ body.my-login-page {
         'previous videoA videoA videoA videoA videoA videoA videoA videoA videoA videoA next';
 }
 
+.button_video_text{
+    margin-top:150%
+}
 
 .side_p {
     font-weight: bold;
