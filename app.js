@@ -98,7 +98,7 @@ const redirectToLogin = (req, res, next) => {
     // console.log(req.session.passport)
     next();
   } else {
-    res.redirect("/login");
+    res.redirect("/signup");
   }
 };
 
